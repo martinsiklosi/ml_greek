@@ -10,5 +10,7 @@ HEIGHT = 370
 PIXEL_SIZE = WIDTH // COLS
 THICKNESS = 2
 
+MAX_TRAINING_FILES = 1000
+
 def get_font(size):
     return pygame.font.SysFont("helvetica", size)
