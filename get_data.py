@@ -5,29 +5,27 @@ import numpy as np
 from settings import *
 
 
-'''ALLA BILDER ÄR OLIKA STORA :/'''
-
-BASE_FOLDER = "C:\\proj\\ml_data\\greek_alphabet\\NORM\\"
-BASE_FOLDER2 = "C:\\proj\\ml_data\\greek_alphabet\\SUFF\\"
-
+BASE_FOLDERS = (
+    "C:\\proj\\ml_data\\greek_alphabet\\SUFF\\", 
+    "C:\\proj\\ml_data\\greek_alphabet\\NORM\\"
+)
 
 images = []
-labels = []
+image_labels = []
 
 def invert(image):
-    for i in range(ROWS):
-        for j in range(COLS):
+    for i in range(len(image)):
+        for j in range(len(image[0])):
             image[i, j] = 255 - image[i, j]
     return image
 
 print("reading images...")
-for i, path in enumerate(Path(BASE_FOLDER).rglob("*.bmp")):
-    if i >= MAX_TRAINING_FILES:
-        break
-    image = cv2.imread(f"{path}")[:,:,0]
-    image = invert(image)
-    images.append(image)
-    labels.append(path.parent.name)
+for base_folder in BASE_FOLDERS:
+    for i, path in enumerate(Path(base_folder).rglob("*.bmp")):
+        image = cv2.imread(f"{path}")[:,:,0]
+        image = invert(image)
+        images.append(image)
+        image_labels.append(LABEL_CONVERSIONS[path.parent.name])
 print(f"read {len(images)} files")
 
 
@@ -37,7 +35,7 @@ for i, element in enumerate(images):
 
 
 print("writing to file...")
-data = (images, labels)
+data = (images, image_labels)
 with open("data.json", "w") as outfile:
     json.dump(data, outfile)
 print("done")

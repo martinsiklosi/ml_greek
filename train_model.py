@@ -2,29 +2,44 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from settings import *
+import json
 
-# # get data
-# # kika på https://www.tensorflow.org/tutorials/load_data/images
-# (train_images, train_labels), (test_images, test_labels) = \
-#     keras.datasets.mnist.load_data()
-
-# def posterise(images):
-#     images[images >= 200] == 255
-#     images[images < 200] == 0
-#     return images
-
-# train_images = np.concatenate((train_images, test_images), axis=0)
-# train_labels = np.concatenate((train_labels, test_labels), axis=0)
-# train_images = posterise(train_images)
+with open("data.json", "r") as file:
+    images, image_labels = json.load(file)
+    
+images = np.array(images, dtype=np.uint8)
+image_labels = np.array(image_labels, dtype=np.uint8)
 
 # setup model
 model = keras.Sequential()
+
 for i in range(6):
-    model.add(keras.layers.Conv2D(8, 3, activation=tf.nn.relu, input_shape=(COLS-2*i, ROWS-2*i, 1)))
+    model.add(
+        keras.layers.Conv2D(
+            8, 
+            3, 
+            activation=tf.nn.relu, 
+            input_shape=(None, None, 1)
+        )
+    )
+    
+model.add(keras.layers.Reshape((45, 45, 1)))
 model.add(keras.layers.Flatten())
+
 for _ in range(12):
-    model.add(keras.layers.Dense(64, activation=tf.nn.relu))
-model.add(keras.layers.Dense(10, activation=tf.nn.softmax))
+    model.add(
+        keras.layers.Dense(
+            64, 
+            activation=tf.nn.relu
+        )
+    )
+    
+model.add(
+    keras.layers.Dense(
+        48, 
+        activation=tf.nn.softmax
+    )
+)
 
 model.compile(
     optimizer=tf.optimizers.Adam(),
@@ -33,7 +48,7 @@ model.compile(
 )
 
 # train model
-model.fit(train_images, train_labels, epochs=5)
+model.fit(images, image_labels, epochs=5)
 
 # save model
 model.save('model')

@@ -1,7 +1,7 @@
 import pygame
 from settings import *
 from button import Button
-#from analyze import predict
+from analyze import predict
 
 pygame.init()
 pygame.font.init()
@@ -64,9 +64,9 @@ while run:
                     continue
                 if button.text == "Clear":
                     grid = init_grid(ROWS, COLS, WHITE)
-                # if button.text == "Analyze":
-                #     prediction, cert = predict(grid)
-                #     buttons[2].text = f"Result: {prediction} ({cert*100:.0f}%)"
+                if button.text == "Analyze":
+                    prediction, cert = predict(grid)
+                    buttons[2].text = f"Result: {prediction} ({cert*100:.0f}%)"
                 break
             else:
                 try:
