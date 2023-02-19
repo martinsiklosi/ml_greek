@@ -52,4 +52,4 @@ images, image_labels = zip(*temp)
 images = np.array(images, dtype=np.uint8)
 image_labels = np.array(image_labels, dtype=np.uint8)
 
-print("\n")
+print(f"\r{len(images)} images collected", end="\n\n")
