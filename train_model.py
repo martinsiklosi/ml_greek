@@ -14,10 +14,10 @@ CONV_KERNEL = 3
 DENSE1_LAYERS = 2
 DENSE1_SIZE = 512
 
-DENSE2_LAYERS = 12
+DENSE2_LAYERS = 8
 DENSE2_SIZE = 86
 
-EPOCHS = 24
+EPOCHS = 16
 
 # setup model
 model = keras.Sequential()
