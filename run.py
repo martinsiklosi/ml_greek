@@ -6,7 +6,7 @@ from analyze import predict
 pygame.init()
 pygame.font.init()
 
-WINDOW = pygame.display.set_mode((HEIGHT, WIDTH))
+WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("AnalyzerX2000")
 
 def init_grid(rows, cols, color):
@@ -43,7 +43,7 @@ def get_row_col_from_pos(pos):
 
 run = True
 clock = pygame.time.Clock()
-grid = init_grid(COLS, ROWS, WHITE)
+grid = init_grid(ROWS, COLS, WHITE)
 
 buttons = [
     Button(10, 10, 50, 50, WHITE, "Clear", BLACK),
