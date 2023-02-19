@@ -5,19 +5,6 @@ from settings import *
 from random import randint, shuffle
 
 
-def image_permutations(image):
-    perms = (
-        image,
-        image[3:-3,3:-3],
-        image[4:-1,2:-2],
-        image[5:-5,6:-5],
-        cv2.resize(image, (ROWS-7, COLS-7)),
-        cv2.resize(image, (ROWS-2, COLS-5)),
-        cv2.resize(image, (ROWS-1, COLS+4)),
-        cv2.resize(image, (ROWS+4, COLS+2))
-    )
-    return perms
-
 def resize(image):
     diff_cols = np.size(image, axis=1) - COLS
     diff_rows = np.size(image, axis=0) - ROWS
@@ -51,17 +38,12 @@ image_labels = []
 for i, path in enumerate(paths):
     if i % 143 == 0: # just to make it look nice :)
         print(f"\r{len(images)} images collected", end="")
-    image = cv2.imread(f"{path}")
-    image = 255 - image # invert
-    # image = np.clip(image, 0, 1) # rescale
-    perms = image_permutations(image)
-    for perm in perms:
-        perm = perm[:,:,:1]
-        perm[perm < 127] = 0
-        perm[perm >= 127] = 1
-        perm = resize(perm)
-        images.append(perm)
-    image_labels.extend(len(perms)*[LABEL_CONVERSIONS[path.parent.name]])
+    image = cv2.imread(f"{path}")[:,:,:1]
+    image = np.clip(image, 0, 1)
+    image = 1 - image
+    image = resize(image)
+    images.append(image)
+    image_labels.append(LABEL_CONVERSIONS[path.parent.name])
 
 temp = list(zip(images, image_labels))
 shuffle(temp)

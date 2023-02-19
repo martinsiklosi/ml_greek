@@ -17,7 +17,7 @@ DENSE2_SIZE = 512
 DENSE1_LAYERS = 8
 DENSE1_SIZE = 86
 
-EPOCHS = 10
+EPOCHS = 16
 
 # setup model
 model = keras.Sequential()
