@@ -31,8 +31,6 @@ paths = []
 for base_folder in BASE_FOLDERS:
     paths.extend(Path(base_folder).rglob("*.bmp"))
 
-print()
-
 images = []
 image_labels = []
 for i, path in enumerate(paths):
@@ -52,4 +50,4 @@ images, image_labels = zip(*temp)
 images = np.array(images, dtype=np.uint8)
 image_labels = np.array(image_labels, dtype=np.uint8)
 
-print(f"\r{len(images)} images collected", end="\n\n")
+print(f"\r{len(images)} images collected")
