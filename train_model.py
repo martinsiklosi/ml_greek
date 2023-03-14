@@ -7,15 +7,15 @@ from settings import *
 from get_data import images, image_labels
 
 # settings
-CONV_LAYERS = 6
-CONV_FILTERS = 4
-CONV_KERNEL = 3
+CONV_LAYERS = 8
+CONV_FILTERS = 8
+CONV_KERNEL = 4
 CONV_STRIDE = 1
 
 DENSE_LAYERS = 2
-DENSE_SIZE = 128
+DENSE_SIZE = 196
 
-EPOCHS = 10
+EPOCHS = 20
 
 # setup model
 model = keras.Sequential()
@@ -45,4 +45,4 @@ model.compile(
 model.fit(images, image_labels, epochs=EPOCHS)
 
 # save model
-model.save('model')
+model.save('model1')

@@ -3,7 +3,7 @@ import numpy as np
 from settings import *
 
 # load model
-model = keras.models.load_model('model')
+model = keras.models.load_model('model1')
 
 def grid_to_picture_data(grid):
     picture_data = np.array(grid, dtype=np.uint8)
